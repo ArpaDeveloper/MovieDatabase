@@ -59,23 +59,26 @@ public class JsonUtils {
     }
 
 
-    private static String handleJsonException(Exception e){
+    private static void handleJsonException(Exception e, Context context){
         String message = "";
 
         if (e instanceof FileNotFoundException) {
-            Log.e(TAG, "File was not found", e);
+            Log.e(TAG, "Error: File was not found", e);
             message = "File was not found";
         } else if (e instanceof JSONException) {
-            Log.e(TAG, "Error movie data format is invalid", e);
+            Log.e(TAG, "Error: Movie data format is invalid", e);
             message = "Error movie data format is invalid";
         } else if (e instanceof IOException) {
-            Log.e(TAG, "Error accessing the movies data", e);
+            Log.e(TAG, "Error: Accessing the movies data", e);
             message = "Error accessing the movies data";
         } else {
-            Log.e(TAG, "Unexpected error, Try again", e);
+            Log.e(TAG, "Error: Unexpected, Try again", e);
             message = "Unexpected error, Try again";
         }
-        return message;
+        if (context instanceof MainActivity) {
+            MainActivity mainActivity = (MainActivity) context;
+            mainActivity.showError(message);
+        }
     }
 
 

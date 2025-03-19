@@ -1,6 +1,7 @@
 package com.example.moviedatabase;
 
 import android.os.Bundle;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
     //Variables
     private RecyclerView movieRecyclerView;
+    private TextView errorTextView;
     private MovieAdapter adapter;
     private List<Movie> movies;
 
@@ -51,5 +53,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void showError(String message){
         errorTextView = findViewById(R.id.errorTextView);
+        errorTextView.setText(message);
     }
 }
