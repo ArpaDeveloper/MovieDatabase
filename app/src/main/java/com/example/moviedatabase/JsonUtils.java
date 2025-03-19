@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -58,11 +59,20 @@ public class JsonUtils {
     }
 
 
+    private static String handleJsonException(Exception e){
+        String message = "";
 
-
-
-
-    private static void handleJsonException(Exception e){
-
+        if (e instanceof FileNotFoundException) {
+            message = "File was not found";
+        } else if (e instanceof JSONException) {
+            message = "Error movie data format is invalid";
+        } else if (e instanceof IOException) {
+            message = "Error accessing the movies data";
+        } else {
+            message = "Unexpected error, Try again";
+        }
+        return message;
     }
+
+
 }
