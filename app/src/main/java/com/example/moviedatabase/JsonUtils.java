@@ -22,7 +22,7 @@ public class JsonUtils {
     public static List<Movie> loadMoviesFromJson(Context context, int resourceId) throws IOException, JSONException {
         List<Movie> movieList = new ArrayList<>();
         String jsonContent = readJsonFile(context, resourceId);
-
+        Log.d("JSON Debug", "Loaded JSON: " + jsonContent);
         //Lets Parse the JSON data
         JSONArray jsonArray = new JSONArray(jsonContent);  //Lets create JSON array from the string
 
@@ -30,11 +30,27 @@ public class JsonUtils {
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject movieObject = jsonArray.getJSONObject(i);
 
-            //Create a Movie Object
+            // Check if the movie object has all required fields
+            if (!movieObject.has("title") || movieObject.isNull("title") ||
+                    !movieObject.has("year") || movieObject.isNull("year") ||
+                    !movieObject.has("genre") || movieObject.isNull("genre") ||
+                    !movieObject.has("poster") || movieObject.isNull("poster")) {
+                Log.e("JSON Error", "Skipping invalid movie entry at index " + i);
+                continue; // Skip this invalid entry
+            }
+
+            // Validate year (ensure it's an integer)
+            int year;
+            try {
+                year = movieObject.getInt("year");
+            } catch (JSONException e) {
+                Log.e("JSON Error", "Invalid year format at index " + i);
+                continue; // Skip invalid entry
+            }
+
             String title = movieObject.getString("title");
-            int year = movieObject.getInt("year");
             String genre = movieObject.getString("genre");
-            String posterResource = movieObject.getString("PosterResource");
+            String posterResource = movieObject.getString("poster");
 
             //Finally add the Movie Object to list
             movieList.add(new Movie(title, year, genre, posterResource));
