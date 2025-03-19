@@ -36,10 +36,6 @@ public class MovieViewHolder extends RecyclerView.ViewHolder{
     }
 
     public void bind(Movie movie) {
-        // Set the movie poster image from a drawable resource
-        int posterResId = movie.getPosterResId();  // Assume you have a method that returns the resource ID
-        posterImageView.setImageResource(posterResId);
-
         // Set the movie title
         titleTextView.setText(movie.getTitle());
 
@@ -48,6 +44,16 @@ public class MovieViewHolder extends RecyclerView.ViewHolder{
 
         // Set the movie genre
         genreTextView.setText(movie.getGenre());
+
+        // Get the poster resource name (e.g., "dark_knight")
+        String posterName = movie.getPosterResource();  // This is "dark_knight"
+
+        // Use the poster resource name to get the image ID from the drawable folder
+        int imageResId = itemView.getContext().getResources()
+                .getIdentifier(posterName, "drawable", itemView.getContext().getPackageName());
+
+        posterImageView.setImageResource(imageResId);  // Set the image from the drawable folder
+
     }
 
     //Getters
@@ -66,17 +72,4 @@ public class MovieViewHolder extends RecyclerView.ViewHolder{
     public TextView getGenreTextView() {
         return genreTextView;
     }
-
-
-
-    // Set the text for the TextViews
-        titleTextView.setText(movie.getTitle());
-        yearTextView.setText(String.valueOf(movie.getYear()));
-        genreTextView.setText(movie.getGenre());
-
-    // Set the image for the ImageView (you can use a library like Glide or Picasso)
-    // Example using Glide (you'll need to add Glide dependency to your build.gradle)
-        Glide.with(itemView.getContext())
-                .load(movie.getPosterResource())
-            .into(posterImageView);
 }
