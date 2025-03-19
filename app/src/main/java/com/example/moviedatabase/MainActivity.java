@@ -7,8 +7,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+    //Variables
+    private RecyclerView movieRecyclerView;
+    private MovieAdapter adapter;
+    private List<Movie> movies;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,5 +29,27 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        //Setup the RecyclerView
+        SetupRecyclerView();
+
+        //Load the data from Json
+        loadMovieData();
+
+    }
+
+    public void SetupRecyclerView(){
+        movieRecyclerView = findViewById(R.id.movieRecyclerView);
+
+        movieRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        movieRecyclerView.setHasFixedSize(true);
+    }
+
+    public void loadMovieData(){
+       // movieData = JsonUtil
+    }
+
+    public void showError(String message){
+
     }
 }
