@@ -1,6 +1,7 @@
 package com.example.moviedatabase;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -11,6 +12,9 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.json.JSONException;
+
+import java.io.IOException;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -42,13 +46,27 @@ public class MainActivity extends AppCompatActivity {
 
     public void SetupRecyclerView(){
         movieRecyclerView = findViewById(R.id.movieRecyclerView);
-
         movieRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         movieRecyclerView.setHasFixedSize(true);
     }
 
     public void loadMovieData(){
-       // movieData = JsonUtil
+        try{
+            movies = JsonUtils.loadMoviesFromJson(this, R.raw.movies);
+        }
+        catch (IOException | JSONException e) {
+            showError("Error: Failed to load Json");
+        }
+
+        if (movies != null && !movies.isEmpty()) {
+            adapter = new MovieAdapter(movies, position -> {
+                Movie clickedMovie = movies.get(position);
+                Log.d("Movie Clicked", clickedMovie.getTitle());
+            });
+            movieRecyclerView.setAdapter(adapter);
+        } else {
+            showError("No movies found.");
+        }
     }
 
     public void showError(String message){
