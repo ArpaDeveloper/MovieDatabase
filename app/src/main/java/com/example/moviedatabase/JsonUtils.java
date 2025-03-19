@@ -30,27 +30,10 @@ public class JsonUtils {
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject movieObject = jsonArray.getJSONObject(i);
 
-            // Check if the movie object has all required fields
-            if (!movieObject.has("title") || movieObject.isNull("title") ||
-                    !movieObject.has("year") || movieObject.isNull("year") ||
-                    !movieObject.has("genre") || movieObject.isNull("genre") ||
-                    !movieObject.has("poster") || movieObject.isNull("poster")) {
-                Log.e("JSON Error", "Skipping invalid movie entry at index " + i);
-                continue; // Skip this invalid entry
-            }
-
-            // Validate year (ensure it's an integer)
-            int year;
-            try {
-                year = movieObject.getInt("year");
-            } catch (JSONException e) {
-                Log.e("JSON Error", "Invalid year format at index " + i);
-                continue; // Skip invalid entry
-            }
-
-            String title = movieObject.getString("title");
-            String genre = movieObject.getString("genre");
-            String posterResource = movieObject.getString("poster");
+            String title = movieObject.optString("title", "Unknown Title");  // Default: "Unknown Title"
+            int year = movieObject.has("year") ? movieObject.optInt("year", -1) : -1;  // Default: -1 (invalid year)
+            String genre = movieObject.optString("genre", "Unknown Genre");  // Default: "Unknown Genre"
+            String posterResource = movieObject.optString("poster", "default_poster");
 
             //Finally add the Movie Object to list
             movieList.add(new Movie(title, year, genre, posterResource));
