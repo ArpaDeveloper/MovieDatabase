@@ -50,6 +50,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showError(String message){
-
+        errorTextView = findViewById(R.id.errorTextView);
     }
 }

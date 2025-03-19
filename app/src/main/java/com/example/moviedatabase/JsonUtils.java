@@ -63,12 +63,16 @@ public class JsonUtils {
         String message = "";
 
         if (e instanceof FileNotFoundException) {
+            Log.e(TAG, "File was not found", e);
             message = "File was not found";
         } else if (e instanceof JSONException) {
+            Log.e(TAG, "Error movie data format is invalid", e);
             message = "Error movie data format is invalid";
         } else if (e instanceof IOException) {
+            Log.e(TAG, "Error accessing the movies data", e);
             message = "Error accessing the movies data";
         } else {
+            Log.e(TAG, "Unexpected error, Try again", e);
             message = "Unexpected error, Try again";
         }
         return message;
