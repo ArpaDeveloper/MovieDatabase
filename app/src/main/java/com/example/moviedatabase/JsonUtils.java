@@ -40,10 +40,19 @@ public class JsonUtils {
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject movieObject = jsonArray.getJSONObject(i);
             //Get all the details and if they are incorrect/missing put a placeholder
-            String title = movieObject.optString("title", "Unknown Title");
+            String title = movieObject.has("title") && !movieObject.isNull("title")
+                    ? movieObject.optString("title", "Unknown Title")
+                    : "Unknown Title";
+
             int year = movieObject.has("year") ? movieObject.optInt("year", -1) : -1;
-            String genre = movieObject.optString("genre", "Unknown Genre");
-            String posterResource = movieObject.optString("poster", "default_poster");
+
+            String genre = movieObject.has("genre") && !movieObject.isNull("genre")
+                    ? movieObject.optString("genre", "Unknown Genre")
+                    : "Unknown Genre";
+
+            String posterResource = movieObject.has("poster") && !movieObject.isNull("poster")
+                    ? movieObject.optString("poster", "poster")
+                    : "poster";
 
             //Finally add the Movie Object to list
             movieList.add(new Movie(title, year, genre, posterResource));

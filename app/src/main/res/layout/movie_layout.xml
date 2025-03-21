@@ -11,11 +11,12 @@
 
         <ImageView
             android:id="@+id/posterImageView"
-            android:layout_width="200dp"
-            android:layout_height="250dp"
+            android:layout_width="170dp"
+            android:layout_height="190dp"
             android:layout_marginStart="116dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="95dp"
+            android:contentDescription="-"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -23,36 +24,38 @@
 
         <TextView
             android:id="@+id/titleTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:layout_marginBottom="22dp"
+            android:layout_width="250dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="185dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="168dp"
             android:text="TextView"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/yearTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="102dp"
-            android:layout_marginTop="41dp"
-            android:layout_marginEnd="74dp"
-            android:layout_marginBottom="22dp"
-            android:text="TextView"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/genreTextView"
-            app:layout_constraintStart_toEndOf="@+id/titleTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/posterImageView" />
 
         <TextView
-            android:id="@+id/genreTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="36dp"
-            android:layout_marginBottom="22dp"
+            android:id="@+id/yearTextView"
+            android:layout_width="250dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="139dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="122dp"
             android:text="TextView"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
+
+        <TextView
+            android:id="@+id/genreTextView"
+            android:layout_width="250dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="139dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="122dp"
+            android:text="TextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/yearTextView" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>
