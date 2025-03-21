@@ -76,44 +76,5 @@ public class Movie {
         return posterResource;
     }
 
-    //Setters
-    public void setTitle(){
-        if(title == null || title.trim().isEmpty()){
-            Log.e(TAG, "Error: Title can't be null or empty");
-            this.title = "title";
-        }
-        else{
-            this.title = title;
-        }
-    }
-    public void setYear(Integer year){
-        //Get the current year
-        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
 
-        if(year == null || year < 1878 || year > currentYear+50){
-            Log.e(TAG, "Error: Invalid year");
-            this.year = 0;
-        }
-        else{
-            this.year = year;
-        }
-    }
-    public void setGenre(){
-        if(genre == null || genre.trim().isEmpty()){
-            Log.e(TAG, "Error: Genre can't be null or empty");
-            this.genre = "genre";
-        }
-        else {
-            this.genre = genre;
-        }
-    }
-    public void setPosterResource(){
-        if(posterResource == null || posterResource.trim().isEmpty()){
-            Log.e(TAG, "Error: Poster resource can't be null or empty");
-            this.posterResource = "poster";
-        }
-        else{
-            this.posterResource = posterResource;
-        }
-    }
 }
