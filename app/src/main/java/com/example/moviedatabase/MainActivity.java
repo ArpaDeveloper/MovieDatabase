@@ -13,8 +13,6 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.json.JSONException;
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -61,15 +59,15 @@ public class MainActivity extends AppCompatActivity {
     public void loadMovieData(){
         //Try loading from the JSON and catch errors
         try{
-            movies = JsonUtils.loadMoviesFromJson(this, R.raw.movies); //2);
+            movies = JsonUtils.loadMoviesFromJson(this, R.raw.movies);
         }
-        catch (IOException | JSONException e) {
-            // Call the public method that indirectly calls handleJsonException
+        catch (Exception e){
             JsonUtils.handleError(e, this);
         }
-        MovieAdapter adapter;
 
         //Initialize the adapter and check for listener
+        MovieAdapter adapter;
+
         if (movies != null && !movies.isEmpty()) {
             adapter = new MovieAdapter(movies, position -> {
                 Movie clickedMovie = movies.get(position);
