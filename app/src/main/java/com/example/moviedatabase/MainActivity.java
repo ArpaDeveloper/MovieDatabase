@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
     public void loadMovieData(){
         //Try loading from the JSON and catch errors
         try{
-            movies = JsonUtils.loadMoviesFromJson(this, 2); //R.raw.movies);
+            movies = JsonUtils.loadMoviesFromJson(this, R.raw.movies); //2);
         }
         catch (IOException | JSONException e) {
             showError("Error: Failed to load Json");
