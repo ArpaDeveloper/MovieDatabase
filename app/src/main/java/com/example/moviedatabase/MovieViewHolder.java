@@ -20,7 +20,7 @@ public class MovieViewHolder extends RecyclerView.ViewHolder{
     private final TextView yearTextView;
     private final TextView genreTextView;
 
-    // Constructor
+    //Constructor
     public MovieViewHolder(@NonNull View itemView, final MovieAdapter.OnItemClickListener listener) {
         super(itemView);
 
