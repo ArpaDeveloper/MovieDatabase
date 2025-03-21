@@ -1,5 +1,6 @@
 package com.example.moviedatabase;
 
+//Imports
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -17,6 +18,12 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * This class calls the other classes
+ * All classes were made with the help Teachers examples
+ * ChatGPT was also used in some parts that I couldn't figure out (Mostly things to do with recyclerView and JSON file handling)
+ * @author ArpaDev
+ */
 public class MainActivity extends AppCompatActivity {
 
     //Variables
@@ -25,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private MovieAdapter adapter;
     private List<Movie> movies;
 
+    //Start method
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,13 +52,17 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //Method to setup the recyclerView
     public void SetupRecyclerView(){
+        //Find the recyclerview and set it layout and size.
         movieRecyclerView = findViewById(R.id.movieRecyclerView);
         movieRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         movieRecyclerView.setHasFixedSize(true);
     }
 
+    //Method to load movie data
     public void loadMovieData(){
+        //Try loading from the JSON and catch errors
         try{
             movies = JsonUtils.loadMoviesFromJson(this, R.raw.movies);
         }
@@ -58,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
             showError("Error: Failed to load Json");
         }
 
+        //Initialize the adapter and check for listener
         if (movies != null && !movies.isEmpty()) {
             adapter = new MovieAdapter(movies, position -> {
                 Movie clickedMovie = movies.get(position);
@@ -69,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //Method to print the errors for user
     public void showError(String message){
         errorTextView = findViewById(R.id.errorTextView);
         errorTextView.setText(message);

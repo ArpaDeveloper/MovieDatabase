@@ -1,5 +1,6 @@
 package com.example.moviedatabase;
 
+//Imports
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -7,6 +8,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+/**
+ * This class manages UI for single movie object
+ * @author ArpaDev
+ */
 public class MovieViewHolder extends RecyclerView.ViewHolder{
 
     //Variables
@@ -23,7 +28,7 @@ public class MovieViewHolder extends RecyclerView.ViewHolder{
         titleTextView = itemView.findViewById(R.id.titleTextView);
         yearTextView = itemView.findViewById(R.id.yearTextView);
         genreTextView = itemView.findViewById(R.id.genreTextView);
-
+        //Define a listener
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -35,6 +40,7 @@ public class MovieViewHolder extends RecyclerView.ViewHolder{
         });
     }
 
+    //Binds the movies data to the ui
     public void bind(Movie movie) {
         // Set the movie title
         titleTextView.setText(movie.getTitle());
@@ -56,20 +62,5 @@ public class MovieViewHolder extends RecyclerView.ViewHolder{
 
     }
 
-    //Getters
-    public ImageView getPosterImageView() {
-        return posterImageView;
-    }
 
-    public TextView getTitleTextView() {
-        return titleTextView;
-    }
-
-    public TextView getYearTextView() {
-        return yearTextView;
-    }
-
-    public TextView getGenreTextView() {
-        return genreTextView;
-    }
 }

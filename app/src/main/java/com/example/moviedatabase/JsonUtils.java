@@ -1,5 +1,6 @@
 package com.example.moviedatabase;
 
+//Imports
 import android.content.Context;
 import android.util.Log;
 
@@ -15,52 +16,68 @@ import java.io.InputStreamReader;
 import java.util.List;
 import java.util.ArrayList;
 
-
+/**
+ * This class handles errors and JSON files
+ * @author ArpaDev
+ */
 public class JsonUtils {
+    //This tag is used in error messages
     private static final String TAG = "JsonUtils";
 
+    //This methods handles the loading of the file contents
     public static List<Movie> loadMoviesFromJson(Context context, int resourceId) throws IOException, JSONException {
+        //Declare a ArrayList of movies
         List<Movie> movieList = new ArrayList<>();
+        //String to store the contents of JSON file
         String jsonContent = readJsonFile(context, resourceId);
         Log.d("JSON Debug", "Loaded JSON: " + jsonContent);
+
         //Lets Parse the JSON data
-        JSONArray jsonArray = new JSONArray(jsonContent);  //Lets create JSON array from the string
+        //Lets create JSON array from the string
+        JSONArray jsonArray = new JSONArray(jsonContent);
 
         //Loop through array to get the details
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject movieObject = jsonArray.getJSONObject(i);
-
-            String title = movieObject.optString("title", "Unknown Title");  // Default: "Unknown Title"
-            int year = movieObject.has("year") ? movieObject.optInt("year", -1) : -1;  // Default: -1 (invalid year)
-            String genre = movieObject.optString("genre", "Unknown Genre");  // Default: "Unknown Genre"
+            //Get all the details and if they are incorrect/missing put a placeholder
+            String title = movieObject.optString("title", "Unknown Title");
+            int year = movieObject.has("year") ? movieObject.optInt("year", -1) : -1;
+            String genre = movieObject.optString("genre", "Unknown Genre");
             String posterResource = movieObject.optString("poster", "default_poster");
 
             //Finally add the Movie Object to list
             movieList.add(new Movie(title, year, genre, posterResource));
         }
+        //Return the list
         return movieList;
     }
 
+    //This method reads the JSON file and returns a string
     private static String readJsonFile(Context context, int resourceId) throws IOException {
+        //Declare a String builder, which allows for better string manipulation
         StringBuilder stringBuilder = new StringBuilder();
+        //Read the JSON file using buffered reader
         try (InputStream inputStream = context.getResources().openRawResource(resourceId);
              BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
-
+            //Loop through as long as there is a line
             String line;
             while ((line = reader.readLine()) != null) {
                 stringBuilder.append(line);
             }
+        //Catch IOException and throw it
         } catch (IOException e) {
             Log.e(TAG, "Error reading JSON file", e);
             throw e;
         }
+        //Return the full string
         return stringBuilder.toString();
     }
 
-
+    //This method handles exceptions
     private static void handleJsonException(Exception e, Context context){
+        //Declare message (This will be returned to MainActivity and printed)
         String message = "";
-
+        //Different message for different errors
         if (e instanceof FileNotFoundException) {
             Log.e(TAG, "Error: File was not found", e);
             message = "File was not found";
@@ -74,6 +91,7 @@ public class JsonUtils {
             Log.e(TAG, "Error: Unexpected, Try again", e);
             message = "Unexpected error, Try again";
         }
+        //If the context is from MainActivity call the print method there
         if (context instanceof MainActivity) {
             MainActivity mainActivity = (MainActivity) context;
             mainActivity.showError(message);
