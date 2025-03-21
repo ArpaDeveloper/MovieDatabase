@@ -85,7 +85,7 @@ public class JsonUtils {
     //This method handles exceptions
     private static void handleJsonException(Exception e, Context context){
         //Declare message (This will be returned to MainActivity and printed)
-        String message = "";
+        String message;
         //Different message for different errors
         if (e instanceof FileNotFoundException) {
             Log.e(TAG, "Error: File was not found", e);
@@ -107,5 +107,9 @@ public class JsonUtils {
         }
     }
 
+    //Getter to call the error handling
+    public static void handleError(Exception e, Context context) {
+        handleJsonException(e, context);
+    }
 
 }

@@ -27,8 +27,6 @@ public class MainActivity extends AppCompatActivity {
 
     //Variables
     private RecyclerView movieRecyclerView;
-    private TextView errorTextView;
-    private MovieAdapter adapter;
     private List<Movie> movies;
 
     //Start method
@@ -66,11 +64,10 @@ public class MainActivity extends AppCompatActivity {
             movies = JsonUtils.loadMoviesFromJson(this, R.raw.movies); //2);
         }
         catch (IOException | JSONException e) {
-            showError("Error: Failed to load Json");
+            // Call the public method that indirectly calls handleJsonException
+            JsonUtils.handleError(e, this);
         }
-        catch (Exception e) {
-        showError("An unexpected error occurred");
-        }
+        MovieAdapter adapter;
 
         //Initialize the adapter and check for listener
         if (movies != null && !movies.isEmpty()) {
@@ -79,13 +76,12 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("Movie Clicked", clickedMovie.getTitle());
             });
             movieRecyclerView.setAdapter(adapter);
-        } else {
-            showError("No movies found.");
         }
     }
 
     //Method to print the errors for user
     public void showError(String message){
+        TextView errorTextView;
         errorTextView = findViewById(R.id.errorTextView);
         errorTextView.setText(message);
     }
